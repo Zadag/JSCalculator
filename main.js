@@ -9,27 +9,59 @@ const btns = document.querySelectorAll('button');
 let num1 = '';
 let num2 = '';
 let operator = '';
-let displayContent = [num1 + operator + num2];
+const operators = ["+", "-", "/", "*", "="];
 
-
-const operators = ["+", "-", "/", "*"];
-
-const changeDisplay = function (){
-    displayTarget.textContent = displayContent; 
+const checkDecimal = function(num){
+    if (num.includes(".")) return true;
 }
 
-const operate = function() {
-
+const changeDisplay = function (buttonVal){
+    if((buttonVal != "+") && (buttonVal != "-") && (buttonVal != "*") && (buttonVal != "/") && (buttonVal != "=") && (operator === "")){
+        if(checkDecimal(num1) && buttonVal === ".") return;
+        num1 += buttonVal;
+    }else if(operators.includes(buttonVal)){
+        if(buttonVal != "=") operator = buttonVal;
+    }else if (operators.includes(operator)){
+        if(checkDecimal(num2) && buttonVal === ".") return;
+        num2 += buttonVal;
+    }
+    console.log(num2);
+    displayTarget.textContent = num1 + " " + operator + " " + num2; 
 }
 
+const evaluate = function(operation){
+    if((operators.includes(operation) && num2 != "") || operator === "="){
+        console.log("operating");
+        if(operator === "+"){
+            num1 = addition(parseFloat(num1), parseFloat(num2))
+            num2 = "";
+            operator = "";
+        }else if(operator === "-"){
+            num1 = subtraction(parseFloat(num1), parseFloat(num2))
+            num2 = "";
+            operator = "";
+        }else if(operator === "*"){
+            num1 = multiplication(parseFloat(num1), parseFloat(num2))
+            num2 = "";
+            operator = "";
+        }else if(operator === "/"){
+            num1 = division(parseFloat(num1), parseFloat(num2));
+            num2 = "";
+            operator = "";
+        }else if (operator === "c"){
+            num1 = "";
+            num2 = "";
+            operator = "";
+        }
+    }
+}
 
 
 btns.forEach((button) => {
     button.addEventListener('click', () => {
-        changeNum(button.id);
-        changeDisplay();
+        console.log(button.value);
+        evaluate(button.value);
+        changeDisplay(button.value);
     });
 });
 
-
-displayTarget.textContent = "test";
