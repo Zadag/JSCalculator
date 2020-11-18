@@ -30,6 +30,8 @@
     background-color: darkblue;
 }
 .display {
+     word-wrap: break-word;
+     overflow: hidden;
     grid-area: 1/ 1/ 2/ 6;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-size: 8vh;
