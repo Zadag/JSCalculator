@@ -12,9 +12,17 @@ let num2 = '';
 let operator = '';
 const operators = ["+", "-", "/", "*", "="];
 
+const round = function(){
+    if(num1.length > 13){
+        num1 = num1.slice(0,11);
+    }
+}
 const checkOverflow = function(){
     if ((num1 + ' ' + operator + ' ' + num2).length > 13){
         displayTarget.textContent = "Overflow";
+        num1 = "";
+        num2 = "";
+        operator = "";
     }
 }
 const checkDecimal = function(num){
@@ -69,7 +77,7 @@ const evaluate = function(operation){
             num1 = "";
             num2 = "";
             operator = "";
-        }
+        }round();
     }
 }
 
